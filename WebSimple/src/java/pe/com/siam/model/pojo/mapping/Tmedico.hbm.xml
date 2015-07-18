@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/06/2015 01:03:49 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pe.com.siam.model.pojo.Tmedico" table="tmedico" catalog="mydbsiam" optimistic-lock="version">
+        <id name="codMedico" type="int">
+            <column name="cod_medico" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombres" type="string">
+            <column name="nombres" length="45" not-null="true" />
+        </property>
+        <property name="apellidos" type="string">
+            <column name="apellidos" length="45" not-null="true" />
+        </property>
+        <set name="tobservacionmedicas" table="tobservacionmedica" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TMedico_cod_medico" not-null="true" />
+            </key>
+            <one-to-many class="pe.com.siam.model.pojo.Tobservacionmedica" />
+        </set>
+        <set name="tdisponibilidadcitamedicas" table="tdisponibilidadcitamedica" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TMed_cod_medico" not-null="true" />
+            </key>
+            <one-to-many class="pe.com.siam.model.pojo.Tdisponibilidadcitamedica" />
+        </set>
+    </class>
+</hibernate-mapping>

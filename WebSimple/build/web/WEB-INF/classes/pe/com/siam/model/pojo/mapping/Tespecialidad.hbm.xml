@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/06/2015 01:03:49 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pe.com.siam.model.pojo.Tespecialidad" table="tespecialidad" catalog="mydbsiam" optimistic-lock="version">
+        <id name="codEspe" type="int">
+            <column name="cod_espe" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="200"/>
+        </property>
+        <property name="costo" type="double">
+            <column name="costo" precision="22" scale="0" not-null="true" />
+        </property>
+        <set name="tdisponibilidadcitamedicas" table="tdisponibilidadcitamedica" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TEspecialidad_cod_espe" not-null="true" />
+            </key>
+            <one-to-many class="pe.com.siam.model.pojo.Tdisponibilidadcitamedica" />
+        </set>
+    </class>
+    <query name="HQLEspecialidadDisponible">
+        <![CDATA[
+	   select DISTINCT esp from Tespecialidad esp inner join esp.tdisponibilidadcitamedicas]]>
+    </query>
+</hibernate-mapping>

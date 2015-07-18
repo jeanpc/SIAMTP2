@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="mydbsiam"/>
+  <table-filter match-name="ttriaje"/>
+  <table-filter match-name="toperacion"/>
+  <table-filter match-name="thistoriaclinica"/>
+  <table-filter match-name="tusuario"/>
+  <table-filter match-name="tmedico"/>
+  <table-filter match-name="thistoriaclinicaenfermedad"/>
+  <table-filter match-name="texamenmedicosolicitado"/>
+  <table-filter match-name="trol_toperacion"/>
+  <table-filter match-name="tdisponibilidadcitamedica"/>
+  <table-filter match-name="tpaciente"/>
+  <table-filter match-name="tespecialidad"/>
+  <table-filter match-name="tenfermedad"/>
+  <table-filter match-name="tdisponibilidad"/>
+  <table-filter match-name="texamenmedico"/>
+  <table-filter match-name="trol"/>
+  <table-filter match-name="tdetallehistoria"/>
+  <table-filter match-name="tcitamedica"/>
+  <table-filter match-name="tobservacionmedica"/>
+</hibernate-reverse-engineering>

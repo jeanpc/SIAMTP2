@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/06/2015 01:03:49 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pe.com.siam.model.pojo.Tdetallehistoria" table="tdetallehistoria" catalog="mydbsiam" optimistic-lock="version">
+        <composite-id name="id" class="pe.com.siam.model.pojo.TdetallehistoriaId">
+            <key-property name="fechaAtencion" type="date">
+                <column name="fecha_atencion" length="10" />
+            </key-property>
+            <key-property name="thistoriaPacienteDni" type="int">
+                <column name="THistoriaPaciente_dni" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="thistoriaclinica" class="pe.com.siam.model.pojo.Thistoriaclinica" update="false" insert="false" fetch="select">
+            <column name="THistoriaPaciente_dni" not-null="true" />
+        </many-to-one>
+        <set name="texamenmedicosolicitados" table="texamenmedicosolicitado" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TDH_fecha_atencion" length="10" not-null="true" />
+                <column name="TDH_THistoriaPaciente_dni" not-null="true" />
+            </key>
+            <one-to-many class="pe.com.siam.model.pojo.Texamenmedicosolicitado" />
+        </set>
+        <one-to-one name="tobservacionmedica" class="pe.com.siam.model.pojo.Tobservacionmedica"></one-to-one>
+        <one-to-one name="ttriaje" class="pe.com.siam.model.pojo.Ttriaje"></one-to-one>
+    </class>
+</hibernate-mapping>

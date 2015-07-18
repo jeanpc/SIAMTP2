@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/06/2015 01:03:49 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pe.com.siam.model.pojo.Tobservacionmedica" table="tobservacionmedica" catalog="mydbsiam" optimistic-lock="version">
+        <composite-id name="id" class="pe.com.siam.model.pojo.TobservacionmedicaId">
+            <key-property name="tdhFechaAtencion" type="date">
+                <column name="TDH_fecha_atencion" length="10" />
+            </key-property>
+            <key-property name="tdhThistoriaPacienteDni" type="int">
+                <column name="TDH_THistoriaPaciente_dni" />
+            </key-property>
+        </composite-id>
+        <one-to-one name="tdetallehistoria" class="pe.com.siam.model.pojo.Tdetallehistoria" constrained="true"></one-to-one>
+        <many-to-one name="tmedico" class="pe.com.siam.model.pojo.Tmedico" fetch="select">
+            <column name="TMedico_cod_medico" not-null="true" />
+        </many-to-one>
+        <property name="patologia" type="string">
+            <column name="patologia" length="120" />
+        </property>
+        <property name="medPrescritos" type="string">
+            <column name="med_prescritos" length="120" />
+        </property>
+        <property name="diagnostico" type="string">
+            <column name="diagnostico" length="120" not-null="true" />
+        </property>
+        <property name="fechaSintoma" type="date">
+            <column name="fecha_sintoma" length="10" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

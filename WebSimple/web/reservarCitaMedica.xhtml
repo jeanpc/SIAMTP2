@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	<link href="resources/css/estilo.css" rel="stylesheet" type="text/css"/>
+  	<title>Orden de Tejedur&iacute;a</title>
+</h:head>
+<h:body>
+    <h:form id="form" style="width:97%">
+    <p:growl id="mensaje" showDetail="true"/>
+    <p:panel  header="Reservar Cita Medica" styleClass="centrado" style="font-size:12px;width: 100%">
+        <p:panelGrid columns="1" styleClass="panelClear" >
+            <p:fieldset id="datoPaci" legend="Datos de paciente" style="text-align:left;width: 100%;">
+                <p:panelGrid columns="3" style="padding-left:0px !important">
+                    <h:outputText value="Nombres y Apellidos"/>
+                    <p:inputText size="45" value="#{mBeanReservarCitaMedica.nomApe}"/>
+                    <p:commandButton value="Buscar" onclick="PF('dlgP').show();"/>
+                    <h:outputText value="N° historia"/>
+                        <p:panelGrid columns="7" styleClass="panelClearFull">
+                            <p:panelGrid styleClass="panelClearFull"/>
+                            <p:inputText size="8" value="#{mBeanReservarCitaMedica.numh}"/>
+                            <p:fieldset styleClass="fieldClear"/><p:fieldset styleClass="fieldClear"/>
+                            <h:outputText value="DNI" /> <p:panel styleClass="espacio" />
+                            <p:inputText size="8" value="#{mBeanReservarCitaMedica.dni}"/>
+                        </p:panelGrid>
+                </p:panelGrid>
+            </p:fieldset>
+            <br/>
+            <p:fieldset id="detaCita" legend="Detalle de cita" style="text-align:left;width: 100%" >
+                <p:panelGrid columns="2">
+                <h:outputText value="Consultar horarios"/>
+                <p:commandLink title="Elija su horario de atencion">
+                    <p:graphicImage onclick="PF('dlg').show();" value="/resources/images/lupa.png" width="28" height="28"/>
+                </p:commandLink>
+                
+                </p:panelGrid>
+                <p:panelGrid columns="6">
+                    <h:outputText value="N° turno"/><p:inputText size="4" value="#{mBeanReservarCitaMedica.numTurno}"/>
+                    <h:outputText value="Fecha"/><p:inputText size="10" value="#{mBeanReservarCitaMedica.fecha}"/>
+                    <h:outputText value="Horario"/><p:inputText size="9" value="#{mBeanReservarCitaMedica.horario}"/>
+                    <h:outputText value="Codigo de médico"/><p:inputText size="4" value="#{mBeanReservarCitaMedica.codMedico}"/>
+                    <h:outputText value="Medico"/><p:inputText size="10" value="#{mBeanReservarCitaMedica.medico}"/>
+                    <h:outputText value="Especialidad"/><p:inputText size="14" value="#{mBeanReservarCitaMedica.especialidad}"/>
+                    <h:outputText value="Precio (S/.)"/><p:inputText size="4" value="#{mBeanReservarCitaMedica.costo}"/>
+                    <h:outputText value="Realizar pago"/>
+                    <h:selectOneRadio id="options" value="#{mBeanReservarCitaMedica.filtro}">
+                        <f:selectItem itemLabel="Si" itemValue="1"/>
+                        <f:selectItem itemLabel="No" itemValue="0"/>
+                        <p:ajax listener="#{mBeanReservarCitaMedica.actualizarBoton()}" update="acciones"/>
+                    </h:selectOneRadio>
+                </p:panelGrid>
+            </p:fieldset>
+            </p:panelGrid>
+            <p:panelGrid id="acciones" columns="2" style="margin:0 auto;" styleClass="panelClear">
+                <p:outputPanel>
+                    <p:commandButton value="#{mBeanReservarCitaMedica.nomxtipo}" onclick="PF('dlg_msg').show();" update="msg_dinamic"
+                                     actionListener="#{mBeanReservarCitaMedica.reservarCita}"/>
+                </p:outputPanel>
+                <p:outputPanel>
+                    <p:commandButton value="Cancelar"/>
+                </p:outputPanel>
+            </p:panelGrid>
+    </p:panel>
+                            
+    <p:dialog id="dialog_msg" header="Mensaje" widgetVar="dlg_msg" resizable="false"
+               modal="true" style="font-size:12px;text-align:left;">
+        <p:outputLabel id="msg_dinamic">
+            <p:graphicImage id="imgdinamic" value="#{mBeanReservarCitaMedica.estiloIMG}"/>
+            <p:outputLabel value="#{mBeanReservarCitaMedica.msgOut}" styleClass="#{mBeanReservarCitaMedica.estiloCSS}"/>
+            <p:panelGrid/>
+            <p:commandButton value="Aceptar" oncomplete="PF('dlg_msg').hide();" styleClass="centrado"
+                                 actionListener="#{mBeanReservarCitaMedica.limpiar}" update="datoPaci detaCita"/>
+        </p:outputLabel>
+    </p:dialog>
+
+    <p:dialog id="dialog" header="Elija un horario de atención" widgetVar="dlg" resizable="false"
+                       modal="true" style="font-size:12px;text-align:left;">
+      <!--  <p:panel id="Horarios" header="Reservar Cita Medica" styleClass="centrado" style="width:740px;font-size:12px"> -->
+                <p:panelGrid columns="2"  styleClass="panelClear panelAux" style="font-size:12px">
+                        <h:outputText value="Seleccione la especialidad"/>
+                        <p:selectOneMenu  id="comboEspe" value="#{mBeanConsultarHorario.espe}" >  
+                                <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                <f:selectItems value="#{mBeanConsultarHorario.espeList}" var="esp" itemValue="#{esp.codEspe}" itemLabel="#{esp.nombre}"/>
+                                <p:ajax event="change" update="dia"/>
+                        </p:selectOneMenu>
+                        <h:outputText value="Seleccione el día de atención"/>
+                        <p:calendar id="dia" value="#{mBeanConsultarHorario.dia}" pattern="dd-MM-yyyy" mask="true" size="15" >
+                            <p:ajax event="dateSelect" listener="#{mBeanConsultarHorario.cargarTabla}" update="listaInfoMedico"/> 
+                        </p:calendar>
+                </p:panelGrid>
+                <br/>
+                <p:dataTable id="listaInfoMedico" value="#{mBeanConsultarHorario.infoDisp}" var="listInfo" style="width:500px;font-size:12px;" styleClass="tablaOT"
+                paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                selectionMode="single" selection="#{mBeanReservarCitaMedica.vista}" rowKey="#{listInfo.get(0)}">
+                    <f:facet  name="header">
+                            <h:outputLabel style="font-size:12px;" value="Horarios disponibles"/>
+                    </f:facet>
+                    <p:ajax event="rowSelect" listener="#{mBeanReservarCitaMedica.cargarDetaCita}" update=":form:detaCita"/>
+                    <p:column headerText="Médico">#{listInfo.get(0)}</p:column>
+                    <p:column headerText="Horario" >#{listInfo.get(1)}</p:column>
+                    <p:column headerText="Reservas" >#{listInfo.get(2)}</p:column>
+                </p:dataTable>
+                <br/>
+                <p:panelGrid columns="2" style="margin:0 auto;" styleClass="panelClear panelAux">
+                    <p:outputPanel>
+                        <p:commandButton value="Aceptar" oncomplete="PF('dlg').hide();">
+                        </p:commandButton>
+                    </p:outputPanel>
+                    <p:outputPanel>
+                        <p:commandButton value="Cancelar" oncomplete="PF('dlg').hide();" 
+                                         actionListener="#{mBeanReservarCitaMedica.limpiarC}" update="detaCita"/>
+                    </p:outputPanel>
+                </p:panelGrid>                
+     <!--   </p:panel>-->
+    </p:dialog>
+    <p:dialog id="dialogP" header="Buscar paciente" widgetVar="dlgP" resizable="false"
+                       modal="true" style="text-align:left;font-size:12px;">
+        <p:panelGrid columns="2"  styleClass="panelClear panelAux">
+            <h:outputText value="Elija el tipo de busqueda"/>
+            <h:selectOneRadio  id="tipoBusqueda" value="#{mBeanBuscarPaciente.filtro}">
+                    <f:selectItem itemLabel="N° historia" itemValue="1"/>
+                    <f:selectItem itemLabel="DNI" itemValue="2"/>
+                    <f:selectItem itemLabel="Todos" itemValue="3"/>
+            </h:selectOneRadio>
+        </p:panelGrid>
+        <p:panelGrid columns="3" styleClass="panelClear panelAux">
+            <h:outputText value="Ingrese el numero"/><p:inputText value="#{mBeanBuscarPaciente.numHxorD}"/>
+            <p:commandLink actionListener="#{mBeanBuscarPaciente.buscarPaciente}" title="buscar paciente" update="listaPacientes">
+                <p:graphicImage value="resources/images/lupa.png" width="28" height="28"/>
+            </p:commandLink>
+        </p:panelGrid>
+            <br/>
+        <p:dataTable id="listaPacientes" value="#{mBeanBuscarPaciente.pacientes}" var="pac" style="width:550px;font-size:12px;" styleClass="tablaOT"
+                     paginatorTemplate="PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+            selectionMode="single" selection="#{mBeanReservarCitaMedica.p}" rowKey="#{pac.dni}"
+            >
+            <f:facet name="header">
+                    <h:outputLabel style="font-size:12px;" value="Lista de pacientes registrados"/>		
+            </f:facet>
+            <p:ajax event="rowSelect" listener="#{mBeanReservarCitaMedica.cargarPaciente}" update=":form:datoPaci" />
+            <p:column headerText="N° Historia" style="width:20px;text-align: center;" >#{pac.thistoriaclinica.numHistoria}</p:column>
+            <p:column headerText="Nombres" style="width: 40px">#{pac.nombres}</p:column>
+            <p:column headerText="Apellidos" style="width: 50px">#{pac.apellidos}</p:column>
+            <p:column headerText="DNI" style="width: 30px;text-align: center">#{pac.dni}</p:column>
+            <p:column headerText="Edad" style="width: 30px">#{pac.fechaNac}</p:column>
+            <p:column headerText="Información" style="width:30px;text-align: center">
+                    <p:commandLink value="ver detalle"/>
+            </p:column>
+        </p:dataTable>
+        <br/>
+        <p:panelGrid columns="2" style="margin:0 auto;" styleClass="panelClear panelAux">
+            <p:outputPanel>
+                <p:commandButton value="Aceptar" oncomplete="PF('dlgP').hide();">
+                </p:commandButton>
+            </p:outputPanel>
+            <p:outputPanel>
+                <p:commandButton value="Cancelar" oncomplete="PF('dlgP').hide();" 
+                                 actionListener="#{mBeanReservarCitaMedica.limpiarP}" update="datoPaci"/>
+            </p:outputPanel>
+        </p:panelGrid>    
+    </p:dialog>
+</h:form>
+</h:body>
+</html>

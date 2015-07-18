@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/06/2015 01:03:49 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pe.com.siam.model.pojo.Tcitamedica" table="tcitamedica" catalog="mydbsiam" optimistic-lock="version">
+        <composite-id name="id" class="pe.com.siam.model.pojo.TcitamedicaId">
+            <key-property name="tpacienteDni" type="int">
+                <column name="TPaciente_dni" />
+            </key-property>
+            <key-property name="tdispCitaMedCodDispo" type="int">
+                <column name="TDispCitaMed_cod_dispo" />
+            </key-property>
+            <key-property name="tdispCitaMedCodMedico" type="int">
+                <column name="TDispCitaMed_cod_medico" />
+            </key-property>
+            <key-property name="fechaCitaCreada" type="date">
+                <column name="fecha_cita_creada" length="10" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="tdisponibilidadcitamedica" class="pe.com.siam.model.pojo.Tdisponibilidadcitamedica" update="false" insert="false" fetch="select">
+            <column name="TDispCitaMed_cod_dispo" not-null="true" />
+            <column name="TDispCitaMed_cod_medico" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tpaciente" class="pe.com.siam.model.pojo.Tpaciente" update="false" insert="false" fetch="select">
+            <column name="TPaciente_dni" not-null="true" />
+        </many-to-one>
+        <property name="numTurno" type="int">
+            <column name="num_turno" not-null="true" />
+        </property>
+        <property name="estadoPago" type="int">
+            <column name="estado_pago" not-null="true" />
+        </property>
+        <property name="estadoAtencion" type="int">
+            <column name="estado_atencion" not-null="true" />
+        </property>
+        <property name="fechaCitaProg" type="date">
+            <column name="fecha_cita_prog" length="10" not-null="true" />
+        </property>
+        <property name="costo" type="java.lang.Double">
+            <column name="costo" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

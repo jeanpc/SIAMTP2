@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+  	<title>SIAM - Menu Médico</title>        
+        <link href="resources/css/estilo.css" rel="stylesheet" type="text/css"/>
+        <style>
+            .panel_izq{
+                width:30%;
+                background-color: #DDD;
+                float: left;
+            }
+            .panel_der{
+                width:70%;
+                float: right;
+            }
+            .tab{
+                display: block;
+                /*background-color: #ea7;*/
+                width: 70%;
+                margin:0 auto auto;
+            }
+            .contenido{
+                min-height: 500px;
+                width: 70%;
+                border-width: 0;
+                padding: 0 120px;
+            }
+            .panel{
+                
+            }
+        </style>
+</h:head>
+<h:body>
+    <p:panel  style="text-align:center;width:90%;margin:0 auto;font-size:10px">
+    <h:form>
+    <p:outputPanel style="width:100%;text-align:right" >
+            <p:graphicImage value="resources/images/ban-telefonista.png" style="width:70%"/>
+    </p:outputPanel>
+
+    <p:panelGrid columns="2" style="width: 100%;height: 100%">
+        <p:outputLabel  style="font-size: 12px;margin: 0 auto">
+            <p:commandButton class="tab" value="Consultar lista de pacientes" onclick="cargarPagina('./aperturarHistoriaClinica.xhtml');"/>
+            <p:commandButton class="tab" value="Reservar cita medica" onclick="cargarPagina('./reservarCitaMedica.xhtml');"/>
+            <p:commandButton class="tab" value="Buscar paciente" onclick="cargarPagina('./buscarPaciente.xhtml');"/>
+        </p:outputLabel>
+        <iframe class="contenido" src=""/>
+    </p:panelGrid>
+    </h:form>
+</p:panel>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"/>
+    <script>
+       function cargarPagina(uri){
+           var $contendor = $('.contenido');
+           $contendor.attr('src',uri);
+       }
+    </script>
+
+</h:body>
+</html>

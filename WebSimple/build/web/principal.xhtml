@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link href="resources/css/estilo.css" rel="stylesheet" type="text/css"/>
+  	<title>Orden de Tejedur&iacute;a</title>
+</h:head>
+<h:body>
+	<p:panel  style="text-align:center;width:1000px;margin:0 auto;font-size:10px">
+	<h:form>
+		<p:outputPanel style="width:100%">
+			<p:graphicImage value="resources/images/logotipo.jpg" style="width:30%"/>
+			<p:graphicImage value="resources/images/ban-telefonista.png" style="width:70%"/>
+		</p:outputPanel>
+		
+		<p:menubar styleClass="txtmsg" style="width:100%;padding: 0;">
+			<p:submenu label="La Clínica" >
+				<p:menuitem value="Historia"/>
+				<p:menuitem value="Direccion"/>
+			</p:submenu>
+			<p:submenu label="Nuestro staff" >			
+			</p:submenu>		
+			<p:submenu label="Informacion para el paciente" >
+				<p:menuitem value="Programa de vacunacion"/>
+				<p:menuitem value="Convenios"/>
+			</p:submenu>
+			<p:submenu label="Servicios Médicos">
+				<p:menuitem value="Centro de maternidad"/>
+				<p:menuitem value="Centro de imagenes"/>
+			</p:submenu>
+			<p:submenu label="Medico en casa">
+			</p:submenu>		
+		</p:menubar>
+		
+		<p:panelGrid columns="2" styleClass="panelClear" style="width:100%">
+			<p:fieldset id="slideShow" style="text-align:left" styleClass="fieldClear">
+				<p:carousel pageLinks="4" autoPlayInterval="4000"   itemStyle="width:700px;height:250px;"
+						 numVisible="1" effect="easeInStrong" circular="true" >
+							<p:graphicImage  width="100%" height="100%" value="resources/images/c1.jpg"/>
+							<p:graphicImage width="100%" height="100%" value="resources/images/c2.jpg"/>
+							<p:graphicImage width="100%" height="100%" value="resources/images/c3.jpg"/>
+							<p:graphicImage width="100%" height="100%" value="resources/images/c4.jpg"/>
+				</p:carousel>
+			</p:fieldset>
+			
+			<p:fieldset id="ServiciosOnline"  styleClass="fieldClear">
+				<p:outputLabel style="font-size:13px">
+				<p:inputText value=""/>
+				<p:graphicImage style="width:28px;height:28px;" value="resources/images/lupa.png"/>
+				</p:outputLabel>
+				<br/><br/><br/>
+				<p:panel header="Servicios en linea" style="font-size:12px;text-align:left;">
+                                    <p:commandLink style="text-decoration:none !important;"  action="reservarCitaMedica.xhtml">
+						<h:outputText value="Reservar cita"/><br/>
+					</p:commandLink>
+					<h:outputText value=".........................................."/>		
+					<br/><br/>
+					<p:commandLink style="text-decoration:none !important;">
+						<h:outputText value="Enviar saludo"/><br/>
+					</p:commandLink>
+					<h:outputText value=".........................................."/>					
+					<br/><br/>
+					<p:commandLink style="text-decoration:none !important;">
+						<h:outputText value="Enviar regalo"/><br/>
+					</p:commandLink>
+					<h:outputText value=".........................................."/>
+					<br/><br/>
+					<p:commandLink style="text-decoration:none !important;">
+						<h:outputText value="Contáctanos"/><br/>
+					</p:commandLink>
+					<h:outputText value=".........................................."/>					
+				</p:panel>			
+			</p:fieldset>
+		</p:panelGrid>
+		
+	</h:form>
+    </p:panel>	
+</h:body>
+</html>

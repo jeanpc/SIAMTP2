@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	<link href="resources/css/estilo.css" rel="stylesheet" type="text/css"/>
+  	<title>Orden de Tejedur&iacute;a</title>
+</h:head>
+<h:body>
+	<!-- <p:panel  style="text-align:center;width:1000px;margin:0 auto;font-size:12px">-->
+        <h:form style="width: 99%">
+           
+        <p:panel  header="Aperturar Historia Clínica" style="margin:0;font-size:12px;width:100%">
+            <br/>
+            <p:fieldset id="registro" legend="Datos del paciente" style="text-align:left;padding-right: 0;margin:0;">
+                <p:panelGrid columns="1" styleClass="panelClear" style="text-align:left;margin:0 auto;">
+                <p:panelGrid columns="16" style="text-align:right !important">
+                    <p:fieldset styleClass="fieldClear"/><p:fieldset styleClass="fieldClear"/><p:fieldset styleClass="fieldClear"/>
+                    <p:fieldset styleClass="fieldClear"/><p:fieldset styleClass="fieldClear"/><p:fieldset styleClass="fieldClear"/>
+                    <p:fieldset styleClass="fieldClear"/><p:fieldset styleClass="fieldClear"/><p:fieldset styleClass="fieldClear"/>
+                    <p:fieldset styleClass="fieldClear"/><p:fieldset styleClass="fieldClear"/><p:fieldset styleClass="fieldClear"/>
+                    <p:fieldset styleClass="fieldClear"/>							
+                    <p:panel styleClass="espacio" style="width:40px" />											
+                    <h:outputText value="N° Historia" /><p:inputText disabled="true" size="6" value="#{mBeanAperturarHistoriaClinica.numHistoria}"/>
+                </p:panelGrid>
+                <p:panelGrid columns="3" style="text-align:left;width:70%">
+                    <h:outputText value="Nombres"/><p:panel styleClass="espacio" style="width:55px !important;"/>
+                    <p:inputText  value="#{mBeanAperturarHistoriaClinica.nomb}" size="67"/>
+                </p:panelGrid>
+                <p:panelGrid columns="4" style="text-align:left;width:90%">
+                    <h:outputText value="Apellido Paterno       "/>
+                    <p:inputText value="#{mBeanAperturarHistoriaClinica.apellPate}" required="true"/>
+                    <h:outputText value="     Apellido Materno"/>
+                    <p:inputText value="#{mBeanAperturarHistoriaClinica.apellMate}" required="true"/>
+                    <h:outputText value="DNI"/>
+                    <p:inputText size="8" required="true" value="#{mBeanAperturarHistoriaClinica.dni}"/>
+                    <h:outputText value="     Sexo" />
+                    <p:selectOneMenu value="#{mBeanAperturarHistoriaClinica.sexo}" required="true">
+                        <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                        <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                        <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                        <f:selectItem itemLabel="Otro ^^" itemValue="X"/>
+                    </p:selectOneMenu>
+                    <h:outputText value="Estado civil"/>
+                    <p:selectOneMenu value="#{mBeanAperturarHistoriaClinica.estaCivil}">
+                        <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                        <f:selectItem itemLabel="Soltero(a)" itemValue="S"/>
+                        <f:selectItem itemLabel="Casado(a)" itemValue="C"/>
+                        <f:selectItem itemLabel="Viudo(a)" itemValue="V"/>
+                        <f:selectItem itemLabel="Diversiado(a)" itemValue="D"/>
+                    </p:selectOneMenu>
+                    <h:outputText value="     Celular"/>
+                    <p:inputText size="10" value="#{mBeanAperturarHistoriaClinica.celular}"/>
+                </p:panelGrid>
+                <p:panelGrid columns="4" style="text-align:left;width:53%">
+                    <h:outputText value="Fecha de nacimiento"/>
+                    <p:inputText size="1" value="#{mBeanAperturarHistoriaClinica.dia}"/>
+                    <p:selectOneMenu value="#{mBeanAperturarHistoriaClinica.mes}">
+                        <f:selectItem itemLabel="Mes" itemValue="0"/>
+                        <f:selectItem itemLabel="Enero" itemValue="01"/>
+                        <f:selectItem itemLabel="Febrero" itemValue="02"/>
+                        <f:selectItem itemLabel="Marzo" itemValue="04"/>
+                        <f:selectItem itemLabel="Abril" itemValue="05"/>
+                        <f:selectItem itemLabel="Mayo" itemValue="06"/>
+                        <f:selectItem itemLabel="Junio" itemValue="07"/>
+                        <f:selectItem itemLabel="Julio" itemValue="08"/>
+                        <f:selectItem itemLabel="Agosto" itemValue="09"/>
+                        <f:selectItem itemLabel="Septiembre  " itemValue="10"/>
+                        <f:selectItem itemLabel="Noviembre" itemValue="11"/>
+                        <f:selectItem itemLabel="Diciembre" itemValue="12"/>                        
+                    </p:selectOneMenu>                          
+                    <p:inputText size="3" value="#{mBeanAperturarHistoriaClinica.ano}" maxlength="9"
+                                 required="true"/>
+                </p:panelGrid>
+                <p:panelGrid columns="2" style="text-align:left;width:90%">
+                    <h:outputText value="Lugar de nacimiento"/>
+                    <p:inputText size="67" value="#{mBeanAperturarHistoriaClinica.lugaNaci}"/>
+                    <h:outputText value="Dirección"/>
+                    <p:inputText size="67" value="#{mBeanAperturarHistoriaClinica.direccion}"/>
+                </p:panelGrid>
+            </p:panelGrid>
+            </p:fieldset>
+
+            <p:panelGrid id="acciones" columns="3" style="margin:0 auto;" styleClass="panelClear">
+                    <p:outputPanel>
+                        <p:commandButton value="Registrar" actionListener="#{mBeanAperturarHistoriaClinica.registrarPaciente()}" 
+                                         onclick="PF('dlg_msg').show();" update="msg_dinamic"/>
+                    </p:outputPanel><p:panel styleClass="espacio"/>
+                    <p:outputPanel>
+                        <p:commandButton value="Cancelar"/>
+                    </p:outputPanel>
+            </p:panelGrid>			
+        
+        <p:dialog id="dialog_msg" header="Mensaje" widgetVar="dlg_msg" resizable="false"
+                           modal="true" style="font-size:12px;text-align:left;">
+            <p:outputLabel id="msg_dinamic">
+                    <p:graphicImage id="imgdinamic" value="#{mBeanAperturarHistoriaClinica.estiloIMG}"/>
+                    <p:outputLabel value="#{mBeanAperturarHistoriaClinica.msgOut}" styleClass="#{mBeanAperturarHistoriaClinica.estiloCSS}"/>
+                            <p:panelGrid></p:panelGrid>
+                            <p:commandButton value="Aceptar" oncomplete="PF('dlg_msg').hide();" styleClass="centrado"
+                                                             actionListener="#{mBeanAperturarHistoriaClinica.limpiar()}" update="registro"/>	
+            </p:outputLabel>
+        </p:dialog>
+        </p:panel>
+	</h:form>
+    <!--</p:panel>-->
+</h:body>
+</html>

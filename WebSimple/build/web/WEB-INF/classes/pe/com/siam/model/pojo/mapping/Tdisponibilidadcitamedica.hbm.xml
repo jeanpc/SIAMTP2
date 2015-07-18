@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/06/2015 01:03:49 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pe.com.siam.model.pojo.Tdisponibilidadcitamedica" table="tdisponibilidadcitamedica" catalog="mydbsiam" optimistic-lock="version">
+        <composite-id name="id" class="pe.com.siam.model.pojo.TdisponibilidadcitamedicaId">
+            <key-property name="tdisCodDispo" type="int">
+                <column name="TDis_cod_dispo" />
+            </key-property>
+            <key-property name="tmedCodMedico" type="int">
+                <column name="TMed_cod_medico" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="tdisponibilidad" class="pe.com.siam.model.pojo.Tdisponibilidad" update="false" insert="false" fetch="select">
+            <column name="TDis_cod_dispo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tespecialidad" class="pe.com.siam.model.pojo.Tespecialidad" fetch="select">
+            <column name="TEspecialidad_cod_espe" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tmedico" class="pe.com.siam.model.pojo.Tmedico" update="false" insert="false" fetch="select">
+            <column name="TMed_cod_medico" not-null="true" />
+        </many-to-one>
+        <property name="capacidad" type="int">
+            <column name="capacidad" not-null="true" />
+        </property>
+        <set name="tcitamedicas" table="tcitamedica" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TDispCitaMed_cod_dispo" not-null="true" />
+                <column name="TDispCitaMed_cod_medico" not-null="true" />
+            </key>
+            <one-to-many class="pe.com.siam.model.pojo.Tcitamedica" />
+        </set>
+    </class>
+    <query name="HQLDisponibilidadCitaMedica">
+        <![CDATA[
+	   select dcm from Tdisponibilidadcitamedica dcm inner join dcm.tmedico m  with m.codMedico = :codMedi 
+            inner join dcm.tdisponibilidad d with d.codDispo = :codDispo]]>
+    </query>    
+</hibernate-mapping>

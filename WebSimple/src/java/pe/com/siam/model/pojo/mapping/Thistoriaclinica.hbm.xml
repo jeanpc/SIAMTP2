@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/06/2015 01:03:49 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pe.com.siam.model.pojo.Thistoriaclinica" table="thistoriaclinica" catalog="mydbsiam" optimistic-lock="version">
+        <id name="tpacienteDni" type="int">
+            <column name="TPaciente_dni" />
+            <generator class="foreign">
+                <param name="property">tpaciente</param>
+            </generator>
+        </id>
+        <one-to-one name="tpaciente" class="pe.com.siam.model.pojo.Tpaciente" constrained="true"></one-to-one>
+        <property name="fechaCreacion" type="timestamp">
+            <column name="fecha_creacion" length="19" not-null="true" />
+        </property>
+        <property name="numHistoria" type="int" >
+            <column  name="num_historia" not-null="true" unique="true" />
+        </property>
+        <set name="tdetallehistorias" table="tdetallehistoria" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="THistoriaPaciente_dni" not-null="true" />
+            </key>
+            <one-to-many class="pe.com.siam.model.pojo.Tdetallehistoria" />
+        </set>
+        <set name="tenfermedads" table="thistoriaclinicaenfermedad" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="THistoriaClinica_TPaciente_dni" not-null="true" />
+            </key>
+            <many-to-many class="pe.com.siam.model.pojo.Tenfermedad">
+                <column name="TEnfermedad_cod_enfer" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
+        <!--<set name="tenfermedads" table="thistoriaclinicaenfermedad" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="THistoriaClinica_TPaciente_dni" not-null="true" />
+            </key>
+            <many-to-many entity-name="pe.com.siam.model.pojo.Tenfermedad">
+                <column name="TEnfermedad_cod_enfer" not-null="true" />
+            </many-to-many>
+        </set>-->

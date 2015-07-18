@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 06/06/2015 01:03:49 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pe.com.siam.model.pojo.Ttriaje" table="ttriaje" catalog="mydbsiam" optimistic-lock="version">
+        <composite-id name="id" class="pe.com.siam.model.pojo.TtriajeId">
+            <key-property name="tdhFechaAtencion" type="date">
+                <column name="TDH_fecha_atencion" length="10" />
+            </key-property>
+            <key-property name="tdhThistoriaPacienteDni" type="int">
+                <column name="TDH_THistoriaPaciente_dni" />
+            </key-property>
+        </composite-id>
+        <one-to-one name="tdetallehistoria" class="pe.com.siam.model.pojo.Tdetallehistoria" constrained="true"></one-to-one>
+        <property name="peso" type="double">
+            <column name="peso" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="talla" type="double">
+            <column name="talla" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="pulso" type="double">
+            <column name="pulso" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="presionDiastolica" type="double">
+            <column name="presion_diastolica" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="presionSistolica" type="double">
+            <column name="presion_sistolica" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="observacion" type="string">
+            <column name="observacion" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

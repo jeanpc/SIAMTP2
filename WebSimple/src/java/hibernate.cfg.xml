@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/mydbsiam?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">admin</property>
+    
+    <!-- <property name="hibernate.current_session_context_class">thread</property> -->
+    <!-- JDBC connection pool (use the built-in) -->
+    <property name="connection.pool_size">1</property>
+    <!-- Echo all executed SQL to stdout -->
+    <property name="show_sql">true</property>    
+    
+    <mapping resource="pe/com/siam/model/pojo/mapping/Tmedico.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Trol.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Tusuario.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Tdetallehistoria.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Tdisponibilidadcitamedica.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Tdisponibilidad.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Tenfermedad.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Thistoriaclinica.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Tespecialidad.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Tcitamedica.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Toperacion.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Texamenmedicosolicitado.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Tpaciente.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Ttriaje.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Tobservacionmedica.hbm.xml"/>
+    <mapping resource="pe/com/siam/model/pojo/mapping/Texamenmedico.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

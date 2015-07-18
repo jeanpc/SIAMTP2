@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/07/2015 07:32:25 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pe.com.siam.model.pojo.Trol" table="trol" catalog="mydbsiam" optimistic-lock="version">
+        <id name="idtrol" type="int">
+            <column name="idtrol" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="30" />
+        </property>
+        <set name="toperacions" table="trol_toperacion" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="trol_idtrol" not-null="true" />
+            </key>
+            <many-to-many class="pe.com.siam.model.pojo.Toperacion">
+                <column name="toperacion_idtoperacion" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="tusuarios" table="tusuario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="trol_idtrol" not-null="true" />
+            </key>
+            <one-to-many class="pe.com.siam.model.pojo.Tusuario" />
+        </set>
+    </class>
+</hibernate-mapping>
