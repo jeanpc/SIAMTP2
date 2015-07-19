@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link href="resources/css/estilo.css" rel="stylesheet" type="text/css"/>
+        <title>Registrar Analisisi Clinico</title>
+    </h:head>
+    <h:body>
+        <p:panel  style="text-align:center;width:1000px;margin:0 auto;font-size:10px">
+            <h:form id="form">
+                <p:panel  header="Registrar Analisis Clinico" styleClass="centrado" style="width:760px;font-size:12px">
+                    <p:fieldset id="datoPaci" legend="Datos de paciente" style="text-align:left;">
+                        <h:panelGrid columns="3" style="padding-left:0px !important" >
+                            <p:outputLabel value="Nombres y apellidos:"/>
+                            <p:inputText id="txtNombres" value="" size="50"/>
+                            <p:commandButton id="btnBuscarPaciente" value="Buscar" onclick="PF('dlgp1').show()"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="4" style="padding-left:0px !important">
+                            <p:outputLabel value="N° de historia:         "/>
+                            <p:inputText id="txtNumHistoria" value="" size="15"/>
+                            <p:outputLabel value="DNI:"/>
+                            <p:inputText id="txtDni" value="" size="8"/>
+                        </h:panelGrid>      
+                    </p:fieldset>
+                    <br/>
+                    <p:fieldset id="datoAnslisis" legend="Datos de analisis" style="text-align:left;">
+                        <p:commandButton id="btnAgregarAnalisis" value="Agregar Analisis Clinico"/>
+                        <br/>
+                        <br/>
+                        <p:dataTable id="listaAnalisis" value="" var="" style="font-size:12px;" styleClass="tablaOT"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     paginator="true" rows="5" rowsPerPageTemplate="5,10,">
+                            <f:facet  name="header">
+                                <h:outputLabel style="font-size:12px;" value="H"/>			
+                            </f:facet>
+                            <p:column headerText="Nombre"></p:column>
+                            <p:column headerText="Costo (S/.)" ></p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+                    <br/>
+                    <p:panelGrid columns="3" style="alignment-baseline: central">
+                        <p:outputLabel value="Total a pagar "/>
+                        <p:inputText id="Totalpagar" value="" size="30"/>
+                    </p:panelGrid>
+                    <br/>
+                    <br/>
+                    <p:commandButton id="btnAceptar" value="Aceptar"/>
+                    <p:commandButton id="btnCancelar" value="Cancelar"/>
+
+                </p:panel>
+                <p:dialog id="dialogP" header="Buscar paciente" widgetVar="dlgp1" resizable="false"
+                          modal="true" style="text-align:center;font-size:12px">
+                    <p:panelGrid columns="2"  styleClass="panelClear" style="width:550px">
+                        <h:outputText value="Elija el tipo de busqueda"/>
+                        <h:selectOneRadio  id="tipoBusqueda" value="#{mBeanBuscarPaciente.filtro}" >  
+                            <f:selectItem itemLabel="N° historia" itemValue="1"/>  
+                            <f:selectItem itemLabel="DNI" itemValue="2"/>
+                            <f:selectItem itemLabel="Todos" itemValue="3"/>
+                        </h:selectOneRadio>
+                    </p:panelGrid>
+                    <p:panelGrid columns="3" styleClass="panelClear" style="width:550px">
+                        <h:outputText value="Ingrese el numero"/><p:inputText value="#{mBeanBuscarPaciente.numHxorD}"/>
+                        <p:commandButton style="width:28px;height:28px;" actionListener="#{mBeanBuscarPaciente.buscarPaciente}"
+                                         update="listaPacientes" title="buscar paciente" image="resources/images/lupa.png">
+
+                        </p:commandButton>
+                    </p:panelGrid>
+                    <br/>
+                    <p:dataTable id="listaPacientes" value="#{mBeanBuscarPaciente.pacientes}" var="pac" style="width:550px;font-size:12px;" styleClass="tablaOT"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 selectionMode="single" selection="#{mBeanReservarCitaMedica.p}" rowKey="#{pac.dni}"
+                                 paginator="true" rows="5" rowsPerPageTemplate="5,10">
+                        <f:facet  name="header">
+                            <h:outputLabel style="font-size:12px;" value="Lista de pacientes registrados"/>			
+                        </f:facet>
+                        <p:column headerText="N° historia">#{pac.thistoriaclinica.numHistoria}</p:column>
+                        <p:column headerText="Nombres" >#{pac.nombres}</p:column>
+                        <p:column headerText="Apellidos" >#{pac.apellidos}</p:column>
+                        <p:column headerText="DNI">#{pac.dni}</p:column>
+                        <p:column headerText="Edad">#{pac.fechaNac}</p:column>
+                        <p:column headerText="Información">
+                            <p:commandLink value="ver detalle"/>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:panelGrid columns="2" style="margin:0 auto;" styleClass="panelClear">
+                        <p:outputPanel>
+                            <p:commandButton value="Aceptar" actionListener="#{mBeanReservarCitaMedica.cargarPaciente}" update="datoPaci"
+                                             oncomplete="PF('dlgP').hide();" >
+                            </p:commandButton>
+                        </p:outputPanel>
+                        <p:outputPanel>
+                            <p:commandButton value="Cancelar"/>
+                        </p:outputPanel>
+                    </p:panelGrid>            
+                </p:dialog>
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>

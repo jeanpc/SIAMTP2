@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <jsp:forward page="menuRecepcionista.jsf"/>
     <jsp:forward page="registrarResultadoExamen.jsf"/>
 </body>
 </html>
